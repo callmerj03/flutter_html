@@ -13,12 +13,11 @@ class _DemoFileState extends State<DemoFile> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Html(
-            data: "<p>viá¹£á¹‡u is one of the principle deities in sanÄtana dharma.  He is one of the trimÅ«rti, the trinity that chreates, preserves and disintegrates everything in the vorá¸».</p>",
-            style: {
-              "p": Style(fontSize: FontSize.small,)
-            },
-          ),
+        child: Html(
+          data:
+              "<p>viá¹£á¹‡u is one of the principle deities in sanÄtana dharma.  He is one of the trimÅ«rti, the trinity that chreates, preserves and disintegrates everything in the vorá¸».</p>",
+          style: {"p": Style(fontSize: FontSize.larger)},
+        ),
       ),
     );
   }
