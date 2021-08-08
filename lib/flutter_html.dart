@@ -12,12 +12,14 @@ import 'package:webview_flutter/webview_flutter.dart';
 //export render context api
 export 'package:flutter_html/html_parser.dart';
 export 'package:flutter_html/image_render.dart';
+
 //export src for advanced custom render uses (e.g. casting context.tree)
 export 'package:flutter_html/src/anchor.dart';
 export 'package:flutter_html/src/interactable_element.dart';
 export 'package:flutter_html/src/layout_element.dart';
 export 'package:flutter_html/src/replaced_element.dart';
 export 'package:flutter_html/src/styled_element.dart';
+
 //export style api
 export 'package:flutter_html/style.dart';
 
@@ -58,6 +60,7 @@ class Html extends StatelessWidget {
     this.onCssParseError,
     this.onImageError,
     this.onMathError,
+    this.nospace = false,
     this.shrinkWrap = false,
     this.onImageTap,
     this.tagsList = const [],
@@ -84,6 +87,7 @@ class Html extends StatelessWidget {
     this.tagsList = const [],
     this.style = const {},
     this.navigationDelegateForIframe,
+    this.nospace = false,
   })  : data = null,
         assert(document != null),
         _anchorKey = anchorKey ?? GlobalKey(),
@@ -123,6 +127,8 @@ class Html extends StatelessWidget {
   /// flexible
   final bool shrinkWrap;
 
+  final bool nospace;
+
   /// A function that defines what to do when an image is tapped
   final OnTap? onImageTap;
 
@@ -160,6 +166,7 @@ class Html extends StatelessWidget {
         key: _anchorKey,
         htmlData: doc,
         onLinkTap: onLinkTap,
+        nospace: nospace,
         onAnchorTap: onAnchorTap,
         onImageTap: onImageTap,
         onCssParseError: onCssParseError,
@@ -220,7 +227,8 @@ class SelectableHtml extends StatelessWidget {
     this.shrinkWrap = false,
     this.style = const {},
     this.tagsList = const [],
-  }) : document = null,
+    this.nospace = false,
+  })  : document = null,
         super(key: key);
 
   SelectableHtml.fromDom({
@@ -232,7 +240,8 @@ class SelectableHtml extends StatelessWidget {
     this.shrinkWrap = false,
     this.style = const {},
     this.tagsList = const [],
-  }) : data = null,
+    this.nospace = false,
+  })  : data = null,
         super(key: key);
 
   /// The HTML data passed to the widget as a String
@@ -255,6 +264,8 @@ class SelectableHtml extends StatelessWidget {
   /// flexible
   final bool shrinkWrap;
 
+  final bool nospace;
+
   /// A list of HTML tags that defines what elements are not rendered
   final List<String> tagsList;
 
@@ -265,13 +276,15 @@ class SelectableHtml extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dom.Document doc = data != null ? HtmlParser.parseHTML(data!) : document!;
+    final dom.Document doc =
+        data != null ? HtmlParser.parseHTML(data!) : document!;
     final double? width = shrinkWrap ? null : MediaQuery.of(context).size.width;
 
     return Container(
       width: width,
       child: HtmlParser(
         key: null,
+        nospace: nospace,
         htmlData: doc,
         onLinkTap: onLinkTap,
         onAnchorTap: onAnchorTap,

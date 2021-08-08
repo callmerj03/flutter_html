@@ -490,8 +490,9 @@ class FontSize {
   static const large = FontSize(25.75);
   static const xLarge = FontSize(29.0);
   static const xxLarge = FontSize(33.0);
-  static const smaller = FontSize(-1.5);
-  static const larger = FontSize(-2.0);
+  static const smaller = FontSize(39.0);
+  static const larger = FontSize(43.0);
+  static const larger1 = FontSize(46.0);
 }
 
 class LineHeight {
